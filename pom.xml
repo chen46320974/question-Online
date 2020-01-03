@@ -21,7 +21,7 @@
         <hutool-all-version>4.6.7</hutool-all-version>
         <mysql-connector-version>5.1.25</mysql-connector-version>
         <druid.version>1.1.12</druid.version>
-        <fastjson-version>1.2.15</fastjson-version>
+        <fastjson-version>1.2.25</fastjson-version>
         <!--swagger-->
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
         <swagger-models.version>1.5.21</swagger-models.version>
