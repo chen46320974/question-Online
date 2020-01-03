@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hope.biz.mapper.QuestionsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <!--<resultMap id="BaseResultMap" type="com.hydl.biz.school.model.Questions">-->
+        <!--<id column="questionid" property="questionid" />-->
+    <!--<result column="id" property="id" />-->
+    <!--<result column="is_deleted" property="isDeleted" />-->
+    <!--<result column="gmt_create" property="gmtCreate" />-->
+    <!--<result column="gmt_modified" property="gmtModified" />-->
+        <!--<result column="questionname" property="questionname" />-->
+        <!--<result column="points" property="points" />-->
+        <!--<result column="questions" property="questions" />-->
+        <!--<result column="unsolved" property="unsolved" />-->
+    <!--</resultMap>-->
+
+    <select id="getQuestionsPage" resultType="edu.hope.biz.entity.model.Questions">
+        SELECT
+            *
+        FROM
+            questions a
+        WHERE
+            a.is_deleted = 0
+        <if test="query.questionName != null and query.questionName !=''">
+            AND a.question_name = #{query.questionName}
+        </if>
+        <if test="query.status != null">
+            AND a.status = #{query.status}
+        </if>
+        <if test="query.publishId != null">
+            AND a.publish_id = #{query.publishId}
+        </if>
+        ORDER BY a.gmt_create DESC
+    </select>
+
+    <select id="test" resultType="java.lang.String">
+        SELECT
+            a.content
+        FROM
+            questions a
+        WHERE
+            a.is_deleted = 0
+            AND a.id = 1
+    </select>
+
+</mapper>

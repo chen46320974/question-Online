@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.hope.biz.mapper.AnswersMapper">
+
+    <!-- 通用查询映射结果 -->
+    <!--<resultMap id="BaseResultMap" type="com.hydl.biz.school.model.Answers">-->
+    <!--<result column="id" property="id" />-->
+    <!--<result column="is_deleted" property="isDeleted" />-->
+    <!--<result column="gmt_create" property="gmtCreate" />-->
+    <!--<result column="gmt_modified" property="gmtModified" />-->
+        <!--<result column="answerid" property="answerid" />-->
+        <!--<result column="questionid" property="questionid" />-->
+        <!--<result column="answername" property="answername" />-->
+        <!--<result column="points" property="points" />-->
+        <!--<result column="answer" property="answer" />-->
+    <!--</resultMap>-->
+
+    <select id="page" resultType="edu.hope.biz.entity.model.Answers">
+        SELECT
+            *
+        FROM
+            answers a
+        WHERE
+            a.is_deleted = 0
+        <if test="query.questionId != null">
+            AND a.question_id = #{query.questionId}
+        </if>
+        ORDER BY
+            a.is_recommend DESC,a.gmt_create DESC
+    </select>
+
+    <select id="getTest" resultType="java.lang.String">
+        SELECT
+            a.content
+        FROM
+            answers a
+        WHERE
+            a.is_deleted = 0
+            AND a.id = 1
+    </select>
+
+    <select id="getMyReplayAnswerList" resultType="edu.hope.biz.entity.response.MyReplayAnswerResponse">
+        SELECT
+            a.*,
+            b.question_name,
+            b.publish_id,
+            b.publish_name
+        FROM
+            answers a
+            LEFT JOIN questions b ON a.question_id = b.id
+        WHERE
+            b.publish_id = #{id}
+        ORDER BY
+            a.is_recommend DESC,
+            a.gmt_create DESC
+    </select>
+
+</mapper>
